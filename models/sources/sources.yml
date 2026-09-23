@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: BTC_STAGE
+    database: BTC
+    schema: BTC_SCHEMA
+    description: "Raw Bitcoin transaction data ingested from external APIs"
+
+    tables:
+      - name: BTC_RAW
+        identifier: BTC
+        description: "Raw ledger records containing Bitcoin daily transactions"
+        config:
+          freshness:
+            warn_after:
+              count: 1
+              period: hour
+            error_after:
+              count: 3
+              period: hour
+          loaded_at_field: BLOCK_TIMESTAMP
