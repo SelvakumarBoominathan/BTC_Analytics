@@ -1,4 +1,4 @@
 SELECT 
-*
+count(*)
 FROM
-{{ref('bronze_btc')}}
+{{ref('silver_btc')}}
