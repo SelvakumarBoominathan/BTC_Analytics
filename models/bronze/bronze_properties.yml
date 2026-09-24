@@ -1,10 +1,11 @@
 version: 2
 
 models:
-  - name: stg_btc
+  - name: bronze_btc
     description: "BTC Transactional data from source."
     config:
       materialized: view
+      schema: bronze
     columns:
       - name: HASY_KEY
         description: " Unique hash key for each BTC transaction"
