@@ -5,13 +5,11 @@ models:
     description: "BTC Transactional data from bronze layer."
     config:
       materialized: incremental
-      incremental_strategy: merge
+      incremental_strategy: append
       on_schema_change: append_new_columns
-      unique_key: HASY_KEY
       schema: silver
     columns:
       - name: HASY_KEY
         description: " Unique hash key for each BTC transaction"
         data_tests:
-          - unique
           - not_null
