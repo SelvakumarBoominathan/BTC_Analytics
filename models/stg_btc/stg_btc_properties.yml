@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: stg_btc
+    description: "BTC Transactional data from source."
+    config:
+      materialized: view
+    columns:
+      - name: HASY_KEY
+        description: " Unique hash key for each BTC transaction"
+        data_tests:
+          - unique
+          - not_null
