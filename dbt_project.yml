@@ -33,3 +33,6 @@ models:
     bronze_btc:
       +materialized: view
       +schema: bronze
+    silver_btc:
+      +materialized: incremental
+      +schema: silver
