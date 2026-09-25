@@ -5,9 +5,12 @@ models:
     description: "BTC transformed data from silverlayer."
     config:
       materialized: ephemeral
-      schema: gold
   - name: whale_alert
     description: "whale alert table using the ephemeral model"
     config:
       materialized: table
       schema: gold
+  - name: gold_btc_latest_price_ephemeral
+    description: "latest values taken from coingecko and loaded as seed"
+    config:
+      materialized: ephemeral
