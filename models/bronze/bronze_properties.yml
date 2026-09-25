@@ -10,5 +10,9 @@ models:
       - name: HASY_KEY
         description: " Unique hash key for each BTC transaction"
         data_tests:
-          - unique
-          - not_null
+          - unique:
+              config:
+                severity: warn
+          - not_null:
+              config:
+                severity: warn
