@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: gold_btc_ephemeral
+    description: "BTC transformed data from silverlayer."
+    config:
+      materialized: ephemeral
+      schema: gold
+  - name: whale_alert
+    description: "whale alert table using the ephemeral model"
+    config:
+      materialized: table
+      schema: gold
