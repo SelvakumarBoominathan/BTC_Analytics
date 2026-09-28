@@ -21,26 +21,32 @@ models:
       latest_version_pointer:
         enabled: true
         alias: gold_whale_alert_current
-    columns:
-      - name: OUTPUT_ADDRESS
-        data_type: string
-      - name: total_sent_btc
-        data_type: float
-      - name: TX_COUNT
-        data_type: int
-      - name: TOTAL_SENT_USD
-        data_type: float
 
     versions:
       - v: 1
         deprecation_date: 2026-10-01
         config:
           enabled: false
+        columns:
+          - name: OUTPUT_ADDRESS
+            data_type: string
+          - name: total_sent_btc
+            data_type: float
+          - name: TX_COUNT
+            data_type: int
+          - name: TOTAL_SENT_USD
+            data_type: float
 
       - v: 2
+        config:
+          enabled: true
         columns:
-          - include: all
-            exclude: [TOTAL_SENT_USD]
+          - name: OUTPUT_ADDRESS
+            data_type: string
+          - name: total_sent_btc
+            data_type: float
+          - name: TX_COUNT
+            data_type: int
 
 exposures:
   - name: btc_whale_alert_exposure
@@ -52,7 +58,7 @@ exposures:
       BTC Whale Alert Transactions Report
 
     depends_on:
-      - ref('gold_whale_alert',v=2)
+      - ref('gold_whale_alert', v=2)
 
     owner:
       name: Selvakumar Boominathan
