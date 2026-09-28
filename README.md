@@ -4,7 +4,7 @@ This project transforms raw Bitcoin transaction records in Snowflake into addres
 
 ## Lineage
 
-![dbt lineage from BTC_RAW through bronze_btc and silver_btc to gold_whale_alert and the dashboard exposure](../png%20file/Project_Lineage.png)
+![dbt lineage from BTC_RAW through bronze_btc and silver_btc to gold_whale_alert and the dashboard exposure](png%20file/Project_Lineage.png)
 
 The pipeline begins with `BTC.BTC_SCHEMA.BTC_RAW`, stages transaction records in `bronze_btc`, flattens transaction outputs in `silver_btc`, and builds the gold whale-alert model. The BTC/USD seed feeds the latest-price ephemeral model used by the v1 USD conversion.
 
@@ -31,7 +31,7 @@ The `convert_to_usd` macro is defined in `macros/usd_conversion.sql`. It multipl
 - **dbt-utils:** `packages.yml` declares `dbt-labs/dbt_utils` version `1.4.1`. Install the package with `dbt deps`. The project uses `dbt_utils.equal_rowcount` in `models/bronze/bronze_properties.yml`.
 - **Model contract:** the `gold_whale_alert` table has an enforced contract declared in `models/gold/gold_properties.yml`; its version column definitions specify the expected output schema.
 - **Model versioning:** `gold_whale_alert` sets `latest_version: 2`. Version 1 is disabled and includes `TOTAL_SENT_USD`; version 2 is enabled and omits that column. The properties file also declares the `gold_whale_alert_current` latest-version pointer alias.
-- **Dashboard exposure:** `btc_whale_alert_exposure` is a dashboard exposure for the Looker Studio Bitcoin Whale Alert report. It declares the report URL, owner, and dependency on `gold_whale_alert` version 2.
+- **Dashboard exposure:** `btc_whale_alert_exposure` is a dashboard exposure for the Looker Studio Bitcoin Whale Alert report. It declares the report URL, owner, and dependency on `gold_whale_alert` version 2. The dashboard screenshot below links to the report.
 - **GitHub Actions CI:** `.github/workflows/dbt-ci.yml` runs for pull requests targeting `master`. It installs dbt Core and the Snowflake adapter at version `1.9.4`, configures credentials from secrets, installs packages, runs `dbt debug`, and runs `dbt run`.
 
 ## Run Locally
@@ -57,24 +57,28 @@ Choose the target explicitly when needed, for example `dbt run --target dev` or 
 
 ## Project Screenshots
 
-The screenshots below document the Snowflake setup and project checks. They are stored in the sibling `png file` folder.
+The screenshots below document the dashboard, Snowflake setup, and project checks. They are stored in the `png file` folder beside this README.
+
+### Exposure Dashboard
+
+[![Bitcoin Whale Alert Looker Studio dashboard showing BTC sent, transaction count, and address totals](png%20file/exposure%20dashboard.png)](https://datastudio.google.com/reporting/ba8c85cf-fd00-41de-9878-4cfba4381b47/page/MOx9F)
 
 ### Snowflake Setup
 
-![Snowflake database creation](../png%20file/Create%20DB.png)
+![Snowflake database creation](png%20file/Create%20DB.png)
 
-![Snowflake schema creation](../png%20file/Create%20Schema.png)
+![Snowflake schema creation](png%20file/Create%20Schema.png)
 
-![Snowflake warehouse creation and configuration](../png%20file/warehouse%20creation%20and%20config.png)
+![Snowflake warehouse creation and configuration](png%20file/warehouse%20creation%20and%20config.png)
 
-![Snowflake folder structure](../png%20file/snowflake%20folder%20structure.png)
+![Snowflake folder structure](png%20file/snowflake%20folder%20structure.png)
 
-![Snowflake table creation](../png%20file/Create%20table.png)
+![Snowflake table creation](png%20file/Create%20table.png)
 
-![Snowflake stage creation and verification](../png%20file/create%20stage%20and%20verification.png)
+![Snowflake stage creation and verification](png%20file/create%20stage%20and%20verification.png)
 
-![Snowflake task and insert statement](../png%20file/task%20and%20insert%20into.png)
+![Snowflake task and insert statement](png%20file/task%20and%20insert%20into.png)
 
 ### Data Checks
 
-![Data verification](../png%20file/verify%20the%20data.png)
+![Data verification](png%20file/verify%20the%20data.png)
