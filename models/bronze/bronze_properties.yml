@@ -5,7 +5,7 @@ models:
     description: "BTC Transactional data from source."
     config:
       materialized: view
-      schema: bronze
+
     columns:
       - name: HASY_KEY
         description: " Unique hash key for each BTC transaction"
@@ -16,3 +16,6 @@ models:
           - not_null:
               config:
                 severity: warn
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: "{{ source('BTC_STAGE', 'BTC_RAW')}}"
