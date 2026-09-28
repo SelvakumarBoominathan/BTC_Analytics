@@ -5,19 +5,29 @@ models:
     description: "BTC transformed data from silverlayer."
     config:
       materialized: ephemeral
-  - name: gold_whale_alert
-    description: "whale alert table using the ephemeral model"
-    config:
-      materialized: table
-    
+
   - name: gold_btc_latest_price_ephemeral
     description: "latest values taken from coingecko and loaded as seed"
     config:
       materialized: ephemeral
 
+  - name: gold_whale_alert
+    description: "whale alert table using the ephemeral model"
+    config:
+      materialized: table
+      contract:
+        enforced: true
+    columns:
+      - name: OUTPUT_ADDRESS
+        data_type: string
+      - name: total_sent_btc
+        data_type: float
+      - name: TX_COUNT
+        data_type: int
+      - name: TOTAL_SENT_USD
+        data_type: float
 
 exposures:
-
   - name: btc_whale_alert_exposure
     label: BITCOIN WHALE ALERT
     type: dashboard
@@ -28,7 +38,6 @@ exposures:
 
     depends_on:
       - ref('gold_whale_alert')
-
 
     owner:
       name: Selvakumar Boominathan
