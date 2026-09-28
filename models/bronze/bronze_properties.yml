@@ -16,6 +16,7 @@ models:
           - not_null:
               config:
                 severity: warn
+
     tests:
       - dbt_utils.equal_rowcount:
           compare_model: "{{ source('BTC_STAGE', 'BTC_RAW')}}"
