@@ -9,6 +9,7 @@ models:
     description: "whale alert table using the ephemeral model"
     config:
       materialized: table
+    
   - name: gold_btc_latest_price_ephemeral
     description: "latest values taken from coingecko and loaded as seed"
     config:
